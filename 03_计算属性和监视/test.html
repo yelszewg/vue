@@ -17,15 +17,50 @@
   计算属性存在缓存, 多次读取只执行一次getter计算
 -->
 <div id="demo">
-  姓: <input type="text" placeholder="First Name"><br>
-  名: <input type="text" placeholder="Last Name"><br>
-  姓名1(单向): <input type="text" placeholder="Full Name1"><br>
-  姓名2(单向): <input type="text" placeholder="Full Name2"><br>
-  姓名3(双向): <input type="text" placeholder="Full Name3"><br>
+  姓: <input type="text" placeholder="FirstName" v-model="FirstName"><br>
+  名: <input type="text" placeholder="LastName" v-model="LastName"><br>
+  姓名1(单向): <input type="text" placeholder="FullName1" v-model="FullName1"><br>
+  姓名2(单向): <input type="text" placeholder="FullName2" v-model="FullName2"><br>
+  姓名3(双向): <input type="text" placeholder="FullName3" v-model="FullName3"><br>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+
+  var vm = new Vue({
+    el:'#demo',
+    data:{
+      FirstName: 'g',
+      LastName: 'hq',
+      FullName2: 'ghq'
+    },
+
+    computed: {
+      FullName1 (){
+        return  this.FirstName + this.LastName
+      },
+      FullName3: {
+        get() {
+          return this.FirstName + '' + this.LastName
+        },
+        set(value) {
+          var name = value.split('')
+          this.FirstName = name[0]
+          this.LastName = name[1]
+        }
+      }
+    },
+
+    watch: {
+      LastName(value) {
+        this.FullName2 = this.FirstName + '' + value
+      }
+    },
+
+  })
+  vm.$switch('FirstName', function(val){
+    this.FullName2 = val + '' + this.LastName
+  })
 
 </script>
 </body>
