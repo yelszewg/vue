@@ -32,13 +32,38 @@
 
 <div id="demo">
   <h2>1. class绑定: :class='xxx'</h2>
+  <div class="classC" :class="myClass" >GHQ</div>
+  <div :class="{classA: hasA, classB: hasB}">葬仪社</div>
+  <div :class="['classA', 'classB']">罪恶王冠</div>
 
   <h2>2. style绑定</h2>
-
+  <div :style="{color: activeColor, fontSize: fontSize + 'px'}">1111</div>
+  <hr/>
+  <button @click="update">更新</button>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+  new Vue({
+    data() {
+      return {
+        myClass: 'classA',
+        hasA: 'false',
+        hasB: 'true',
+        activeColor: 'yellow',
+        fontSize: 30
+      }
+    },
+    methods: {
+      update () {
+        this.myClass = 'classB'
+        this.hasA = !this.hasA
+        this.hasB = !this.hasB
+        this.activeColor = 'blue'
+        this.fontSize = 10
+      }
+    },
+  }).$mount('#demo')
 
 </script>
 </body>

@@ -15,10 +15,24 @@
 -->
 
 <div id="demo">
+  <p v-if="ok">葬仪社</p>
+  <p v-else>GHQ</p>
+
+  <p v-show="ok">葬仪社</p>
+  <p v-show="!ok">GHQ</p>
+
+
+  <button @click= "ok = !ok">切换</button>
 </div>
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
+new Vue({
+  el: '#demo',
+  data: {
+    ok: true
+  }
+})
 </script>
 </body>
 </html>
